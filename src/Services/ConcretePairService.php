@@ -12,11 +12,10 @@ class ConcretePairService
     {
     }
 
-    public function getPair(int $option): PersonDTO
+    public function getPair(int $option): PairDTO
     {
         $answer = $this->listOfAllPairs[0];
         foreach ($this->listOfAllPairs as $pair) {
-
             if ($option == Options::CLOSEST) {
                 $answer = $this->getClosest($pair, $answer);
             }
@@ -26,12 +25,12 @@ class ConcretePairService
         }
         return $answer;
     }
-    private function getClosest($pair, $answer)
+    private function getClosest(PairDTO $pair, PairDTO $answer): PairDTO
     {
         return $pair->getDistance() < $answer->getDistance() ? $pair : $answer;
     }
 
-    private function getFurthest($pair, $answer)
+    private function getFurthest(PairDTO $pair, PairDTO $answer): PairDTO
     {
         return $pair->getDistance() > $answer->getDistance() ? $pair : $answer;
     }

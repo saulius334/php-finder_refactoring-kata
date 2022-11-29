@@ -9,20 +9,21 @@ use PHPUnit\Framework\TestCase;
 use CodelyTV\FinderKata\Models\Person;
 use CodelyTV\FinderKata\Algorithm\Finder;
 use CodelyTV\FinderKata\Algorithm\Options;
+use Exception;
 use InvalidArgumentException;
 
 final class FinderRefactoredTest extends TestCase
 {
     /**
-     * @dataProvider ExceptionDataProvider
+     * @dataProvider exceptionDataProvider
      */
-    public function testFinderExceptions(array $listOfPersons, int $option, $expected): void
+    public function testFinderExceptions(array $listOfPersons, int $option, mixed $expected): void
     {
         $this->expectException($expected);
         $finder = new Finder($listOfPersons);
         $finder->find($option);
     }
-    public function ExceptionDataProvider(): Generator
+    public function exceptionDataProvider(): Generator
     {
         yield 'test_should_return_empty_when_given_empty_list' => [
             [],
@@ -36,16 +37,16 @@ final class FinderRefactoredTest extends TestCase
         ];
     }
     /**
-     * @dataProvider FinderDataProvider
+     * @dataProvider finderDataProvider
      */
-    public function testFinder(array $listOfPersons, int $option, $expected): void
+    public function testFinder(array $listOfPersons, int $option, array $expected): void
     {
         $finder = new Finder($listOfPersons);
         $result = $finder->find($option);
         $this->assertEquals($expected[0], $result->getPerson1());
         $this->assertEquals($expected[1], $result->getPerson2());
     }
-    public function FinderDataProvider(): Generator
+    public function finderDataProvider(): Generator
     {
         yield 'should_return_closest_two_for_two_people' => [
             [
@@ -96,6 +97,5 @@ final class FinderRefactoredTest extends TestCase
                 new Person("Greg", new \DateTime("1952-05-01"))
             ]
         ];
-
     }
 }

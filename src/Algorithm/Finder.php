@@ -1,22 +1,23 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace CodelyTV\FinderKata\Algorithm;
 
-use CodelyTV\FinderKata\Services\ConcretePairService;
-use CodelyTV\FinderKata\Services\PersonDTO;
-use CodelyTV\FinderKata\Services\ListOfPairsService;
 use InvalidArgumentException;
+use CodelyTV\FinderKata\Services\PairDTO;
+use CodelyTV\FinderKata\Services\ListOfPairsService;
+use CodelyTV\FinderKata\Services\ConcretePairService;
 
 final class Finder
 {
+    private ListOfPairsService $listService;
     public function __construct(private array $personList)
     {
         $this->listService = new ListOfPairsService($this->personList);
     }
 
-    public function find(int $option): PersonDTO
+    public function find(int $option): PairDTO
     {
         $listOfAllPairs = $this->listService->getPairList();
 

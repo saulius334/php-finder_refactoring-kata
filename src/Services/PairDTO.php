@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace CodelyTV\FinderKata\Services;
 
 use CodelyTV\FinderKata\Models\Person;
 
-final class PersonDTO
+final class PairDTO
 {
     private Person $person1;
     private Person $person2;
@@ -41,6 +41,4 @@ final class PersonDTO
     {
         $this->distance = $distance;
     }
-
-   
 }

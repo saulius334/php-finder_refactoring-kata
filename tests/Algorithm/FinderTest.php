@@ -12,6 +12,10 @@ use InvalidArgumentException;
 
 final class FinderTest extends TestCase
 {
+    private Person $sue;
+    private Person $greg;
+    private Person $sarah;
+    private Person $mike;
     protected function setUp(): void
     {
         $this->sue = new Person("Sue", new \DateTime("1950-01-01"));
@@ -19,7 +23,7 @@ final class FinderTest extends TestCase
         $this->sarah = new Person("Sarah", new \DateTime("1982-01-01"));
         $this->mike = new Person("Mike", new \DateTime("1979-01-01"));
     }
-    public function test_should_return_empty_when_given_empty_list(): void
+    public function testShouldReturnEmptyWhenGivenEmptyList(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $list   = [];
@@ -30,8 +34,7 @@ final class FinderTest extends TestCase
         $this->assertEquals(null, $result->getPerson2());
     }
 
-    /** @test */
-    public function should_return_empty_when_given_one_person(): void
+    public function testShouldReturnEmptyWhenGivenOnePerson(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $list   = [];
@@ -44,8 +47,7 @@ final class FinderTest extends TestCase
         $this->assertEquals(null, $result->getPerson2());
     }
 
-    /** @test */
-    public function should_return_closest_two_for_two_people(): void
+    public function testShouldReturnClosestTwoForTwoPeople(): void
     {
         $list   = [];
         $list[] = $this->sue;
@@ -57,8 +59,7 @@ final class FinderTest extends TestCase
         $this->assertEquals($this->greg, $result->getPerson2());
     }
 
-    /** @test */
-    public function should_return_furthest_two_for_two_people(): void
+    public function testShouldReturnFurthestTwoForTwoPeople(): void
     {
         $list   = [];
         $list[] = $this->mike;
@@ -71,8 +72,7 @@ final class FinderTest extends TestCase
         $this->assertEquals($this->mike, $result->getPerson2());
     }
 
-    /** @test */
-    public function should_return_furthest_two_for_four_people(): void
+    public function testShouldReturnFurthestTwoForFourPeople(): void
     {
         $list   = [];
         $list[] = $this->sue;
@@ -87,10 +87,7 @@ final class FinderTest extends TestCase
         $this->assertEquals($this->sarah, $result->getPerson2());
     }
 
-    /**
-     * @test
-     */
-    public function should_return_closest_two_for_four_people(): void
+    public function testShouldReturnClosestTwoForFourPeople(): void
     {
         $list   = [];
         $list[] = $this->sue;
