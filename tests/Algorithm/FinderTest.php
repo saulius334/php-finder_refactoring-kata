@@ -19,79 +19,78 @@ final class FinderTest extends TestCase
         $this->mike = new Person("Mike", new \DateTime("1979-01-01"));
     }
 
+
+    public function test_should_return_empty_when_given_empty_list(): void
+    {
+        $list   = [];
+        $finder = new Finder($list);
+
+        $result = $finder->find(Options::CLOSEST);
+        $this->assertEquals(null, $result->person1);
+        $this->assertEquals(null, $result->person2);
+    }
+
     /** @test */
-    // public function should_return_empty_when_given_empty_list(): void
-    // {
-    //     $list   = [];
-    //     $finder = new Finder($list);
+    public function should_return_empty_when_given_one_person(): void
+    {
+        $list   = [];
+        $list[] = $this->sue;
+        $finder = new Finder($list);
 
-    //     $result = $finder->find(Options::CLOSEST);
-    //     // print_r($result);
-    //     $this->assertEquals(null, $result->person1);
-    //     $this->assertEquals(null, $result->person2);
-    // }
+        $result = $finder->find(Options::CLOSEST);
 
-    // /** @test */
-    // public function should_return_empty_when_given_one_person(): void
-    // {
-    //     $list   = [];
-    //     $list[] = $this->sue;
-    //     $finder = new Finder($list);
+        $this->assertEquals(null, $result->person1);
+        $this->assertEquals(null, $result->person2);
+    }
 
-    //     $result = $finder->find(Options::CLOSEST);
+    /** @test */
+    public function should_return_closest_two_for_two_people(): void
+    {
+        $list   = [];
+        $list[] = $this->sue;
+        $list[] = $this->greg;
+        $finder = new Finder($list);
 
-    //     $this->assertEquals(null, $result->person1);
-    //     $this->assertEquals(null, $result->person2);
-    // }
+        $result = $finder->find(Options::CLOSEST);
+        $this->assertEquals($this->sue, $result->person1);
+        $this->assertEquals($this->greg, $result->person2);
+    }
 
-    // /** @test */
-    // public function should_return_closest_two_for_two_people(): void
-    // {
-    //     $list   = [];
-    //     $list[] = $this->sue;
-    //     $list[] = $this->greg;
-    //     $finder = new Finder($list);
+    /** @test */
+    public function should_return_furthest_two_for_two_people(): void
+    {
+        $list   = [];
+        $list[] = $this->mike;
+        $list[] = $this->greg;
+        $finder = new Finder($list);
 
-    //     $result = $finder->find(Options::CLOSEST);
-    //     $this->assertEquals($this->sue, $result->person1);
-    //     $this->assertEquals($this->greg, $result->person2);
-    // }
+        $result = $finder->find(Options::FURTHEST);
 
-    // /** @test */
-    // public function should_return_furthest_two_for_two_people(): void
-    // {
-    //     $list   = [];
-    //     $list[] = $this->mike;
-    //     $list[] = $this->greg;
-    //     $finder = new Finder($list);
+        $this->assertEquals($this->greg, $result->person1);
+        $this->assertEquals($this->mike, $result->person2);
+    }
 
-    //     $result = $finder->find(Options::FURTHEST);
+    /** @test */
+    public function should_return_furthest_two_for_four_people(): void
+    {
+        $list   = [];
+        $list[] = $this->sue;
+        $list[] = $this->sarah;
+        $list[] = $this->mike;
+        $list[] = $this->greg;
+        $finder = new Finder($list);
 
-    //     $this->assertEquals($this->greg, $result->person1);
-    //     $this->assertEquals($this->mike, $result->person2);
-    // }
-
-    // /** @test */
-    // public function should_return_furthest_two_for_four_people(): void
-    // {
-    //     $list   = [];
-    //     $list[] = $this->sue;
-    //     $list[] = $this->sarah;
-    //     $list[] = $this->mike;
-    //     $list[] = $this->greg;
-    //     $finder = new Finder($list);
-
-    //     $result = $finder->find(Options::FURTHEST);
-    //     // print_r($result);
+        $result = $finder->find(Options::FURTHEST);
+        // print_r($result);
 
 
-    //     $this->assertEquals($this->sue, $result->person1);
-    //     $this->assertEquals($this->sarah, $result->person2);
-    // }
+        $this->assertEquals($this->sue, $result->person1);
+        $this->assertEquals($this->sarah, $result->person2);
+    }
 
-    // /**
-    //  * @test
-    //  */
+    /**
+     * @test
+     */
     public function should_return_closest_two_for_four_people(): void
     {
         $list   = [];
