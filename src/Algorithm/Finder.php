@@ -4,57 +4,57 @@ declare(strict_types = 1);
 
 namespace CodelyTV\FinderKata\Algorithm;
 
+use CodelyTV\FinderKata\Services\PersonDTO;
+
 final class Finder
 {
-    /** @var Thing[] */
-    private $_p;
-
-    public function __construct(array $p)
+    public function __construct(private array $personList)
     {
-        $this->_p = $p;
     }
 
-    public function find(int $ft): F
+    public function find(int $option): PersonDTO
     {
         /** @var F[] $tr */
         $tr = [];
 
-        for ($i = 0; $i < count($this->_p); $i++) {
-            for ($j = $i + 1; $j < count($this->_p); $j++) {
-                $r = new F();
 
-                if ($this->_p[$i]->birthDate < $this->_p[$j]->birthDate) {
-                    $r->p1 = $this->_p[$i];
-                    $r->p2 = $this->_p[$j];
+
+        for ($i = 0; $i < count($this->personList); $i++) {
+            for ($j = $i + 1; $j < count($this->personList); $j++) {
+                $result = new PersonDTO();
+
+                if ($this->personList[$i]->getBirthDate() < $this->personList[$j]->getBirthDate()) {
+                    $result->person1 = $this->personList[$i];
+                    $result->person2 = $this->personList[$j];
                 } else {
-                    $r->p1 = $this->_p[$j];
-                    $r->p2 = $this->_p[$i];
+                    $result->person1 = $this->personList[$j];
+                    $result->person2 = $this->personList[$i];
                 }
 
-                $r->d = $r->p2->birthDate->getTimestamp()
-                    - $r->p1->birthDate->getTimestamp();
+                $result->distance = $result->person2->getBirthDate()
+                    - $result->person1->getBirthDate();
 
-                $tr[] = $r;
+                $tr[] = $result;
             }
         }
-
+        print_r($tr);
         if (count($tr) < 1) {
-            return new F();
+            return new PersonDTO();
         }
 
         $answer = $tr[0];
 
-        foreach ($tr as $result) {
-            switch ($ft) {
-                case FT::ONE:
-                    if ($result->d < $answer->d) {
-                        $answer = $result;
+        foreach ($tr as $person) {
+            switch ($option) {
+                case Options::CLOSEST:
+                    if ($person->distance < $answer->distance) {
+                        $answer = $person;
                     }
                     break;
 
-                case FT::TWO:
-                    if ($result->d > $answer->d) {
-                        $answer = $result;
+                case Options::FURTHEST:
+                    if ($person->distance > $answer->distance) {
+                        $answer = $person;
                     }
                     break;
             }
