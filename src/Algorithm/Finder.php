@@ -9,7 +9,7 @@ use CodelyTV\FinderKata\Services\PairDTO;
 use CodelyTV\FinderKata\Services\ListOfPairsService;
 use CodelyTV\FinderKata\Services\ConcretePairService;
 
-final class Finder
+final class Finder implements FinderInterface
 {
     private ListOfPairsService $listService;
     public function __construct(private array $personList)
