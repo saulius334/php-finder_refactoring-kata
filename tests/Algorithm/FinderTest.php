@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace CodelyTV\FinderKataTest\Algorithm;
 
+use Generator;
 use PHPUnit\Framework\TestCase;
-use CodelyTV\FinderKata\Algorithm\Finder;
 use CodelyTV\FinderKata\Models\Person;
+use CodelyTV\FinderKata\Algorithm\Finder;
 use CodelyTV\FinderKata\Algorithm\Options;
+use InvalidArgumentException;
 
 final class FinderTest extends TestCase
 {
@@ -18,29 +20,29 @@ final class FinderTest extends TestCase
         $this->sarah = new Person("Sarah", new \DateTime("1982-01-01"));
         $this->mike = new Person("Mike", new \DateTime("1979-01-01"));
     }
-
-
     public function test_should_return_empty_when_given_empty_list(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $list   = [];
         $finder = new Finder($list);
 
         $result = $finder->find(Options::CLOSEST);
-        $this->assertEquals(null, $result->person1);
-        $this->assertEquals(null, $result->person2);
+        $this->assertEquals(null, $result->getPerson1());
+        $this->assertEquals(null, $result->getPerson2());
     }
 
     /** @test */
     public function should_return_empty_when_given_one_person(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $list   = [];
         $list[] = $this->sue;
         $finder = new Finder($list);
 
         $result = $finder->find(Options::CLOSEST);
 
-        $this->assertEquals(null, $result->person1);
-        $this->assertEquals(null, $result->person2);
+        $this->assertEquals(null, $result->getPerson1());
+        $this->assertEquals(null, $result->getPerson2());
     }
 
     /** @test */
@@ -52,8 +54,8 @@ final class FinderTest extends TestCase
         $finder = new Finder($list);
 
         $result = $finder->find(Options::CLOSEST);
-        $this->assertEquals($this->sue, $result->person1);
-        $this->assertEquals($this->greg, $result->person2);
+        $this->assertEquals($this->sue, $result->getPerson1());
+        $this->assertEquals($this->greg, $result->getPerson2());
     }
 
     /** @test */
@@ -66,8 +68,8 @@ final class FinderTest extends TestCase
 
         $result = $finder->find(Options::FURTHEST);
 
-        $this->assertEquals($this->greg, $result->person1);
-        $this->assertEquals($this->mike, $result->person2);
+        $this->assertEquals($this->greg, $result->getPerson1());
+        $this->assertEquals($this->mike, $result->getPerson2());
     }
 
     /** @test */
@@ -84,8 +86,8 @@ final class FinderTest extends TestCase
         // print_r($result);
 
 
-        $this->assertEquals($this->sue, $result->person1);
-        $this->assertEquals($this->sarah, $result->person2);
+        $this->assertEquals($this->sue, $result->getPerson1());
+        $this->assertEquals($this->sarah, $result->getPerson2());
     }
 
     /**
@@ -102,7 +104,7 @@ final class FinderTest extends TestCase
 
         $result = $finder->find(Options::CLOSEST);
 
-        $this->assertEquals($this->sue, $result->person1);
-        $this->assertEquals($this->greg, $result->person2);
+        $this->assertEquals($this->sue, $result->getPerson1());
+        $this->assertEquals($this->greg, $result->getPerson2());
     }
 }

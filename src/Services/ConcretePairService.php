@@ -19,13 +19,13 @@ class ConcretePairService
 
             switch ($option) {
                 case Options::CLOSEST:
-                    if ($pair->distance < $answer->distance) {
+                    if ($pair->getDistance() < $answer->getDistance()) {
                         $answer = $pair;
                     }
                     break;
 
                 case Options::FURTHEST:
-                    if ($pair->distance > $answer->distance) {
+                    if ($pair->getDistance() > $answer->getDistance()) {
                         $answer = $pair;
                     }
                     break;

@@ -7,20 +7,21 @@ namespace CodelyTV\FinderKata\Algorithm;
 use CodelyTV\FinderKata\Services\ConcretePairService;
 use CodelyTV\FinderKata\Services\PersonDTO;
 use CodelyTV\FinderKata\Services\ListOfPairsService;
+use InvalidArgumentException;
 
 final class Finder
 {
     public function __construct(private array $personList)
     {
+        $this->listService = new ListOfPairsService($this->personList);
     }
 
     public function find(int $option): PersonDTO
     {
-        $dateFinder = new ListOfPairsService($this->personList);
-        $listOfAllPairs = $dateFinder->getPairList();
+        $listOfAllPairs = $this->listService->getPairList();
 
         if (count($listOfAllPairs) < 1) {
-            return new PersonDTO();
+            throw new InvalidArgumentException('Not enough people in list.');
         }
 
         $concretePair = new ConcretePairService($listOfAllPairs);
