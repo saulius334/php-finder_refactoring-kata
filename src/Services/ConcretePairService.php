@@ -16,12 +16,8 @@ class ConcretePairService
     {
         $answer = $this->listOfAllPairs[0];
         foreach ($this->listOfAllPairs as $pair) {
-            if ($option == Options::CLOSEST) {
-                $answer = $this->getClosest($pair, $answer);
-            }
-            if ($option == Options::FURTHEST) {
-                $answer = $this->getFurthest($pair, $answer);
-            }
+            $answer = $option === Options::CLOSEST ?
+            $this->getClosest($pair, $answer) : $this->getFurthest($pair, $answer);
         }
         return $answer;
     }
