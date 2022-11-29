@@ -17,20 +17,22 @@ class ConcretePairService
         $answer = $this->listOfAllPairs[0];
         foreach ($this->listOfAllPairs as $pair) {
 
-            switch ($option) {
-                case Options::CLOSEST:
-                    if ($pair->getDistance() < $answer->getDistance()) {
-                        $answer = $pair;
-                    }
-                    break;
-
-                case Options::FURTHEST:
-                    if ($pair->getDistance() > $answer->getDistance()) {
-                        $answer = $pair;
-                    }
-                    break;
+            if ($option == Options::CLOSEST) {
+                $answer = $this->getClosest($pair, $answer);
+            }
+            if ($option == Options::FURTHEST) {
+                $answer = $this->getFurthest($pair, $answer);
             }
         }
         return $answer;
+    }
+    private function getClosest($pair, $answer)
+    {
+        return $pair->getDistance() < $answer->getDistance() ? $pair : $answer;
+    }
+
+    private function getFurthest($pair, $answer)
+    {
+        return $pair->getDistance() > $answer->getDistance() ? $pair : $answer;
     }
 }

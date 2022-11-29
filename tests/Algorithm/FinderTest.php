@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace CodelyTV\FinderKataTest\Algorithm;
 
-use Generator;
 use PHPUnit\Framework\TestCase;
 use CodelyTV\FinderKata\Models\Person;
 use CodelyTV\FinderKata\Algorithm\Finder;
@@ -83,8 +82,6 @@ final class FinderTest extends TestCase
         $finder = new Finder($list);
 
         $result = $finder->find(Options::FURTHEST);
-        // print_r($result);
-
 
         $this->assertEquals($this->sue, $result->getPerson1());
         $this->assertEquals($this->sarah, $result->getPerson2());
