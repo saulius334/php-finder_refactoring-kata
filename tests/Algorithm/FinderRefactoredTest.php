@@ -5,19 +5,18 @@ declare(strict_types=1);
 namespace CodelyTV\FinderKataTest\Algorithm;
 
 use Generator;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use CodelyTV\FinderKata\Enums\Options;
 use CodelyTV\FinderKata\Models\Person;
 use CodelyTV\FinderKata\Algorithm\Finder;
-use CodelyTV\FinderKata\Algorithm\Options;
-use Exception;
-use InvalidArgumentException;
 
 final class FinderRefactoredTest extends TestCase
 {
     /**
      * @dataProvider exceptionDataProvider
      */
-    public function testFinderExceptions(array $listOfPersons, int $option, mixed $expected): void
+    public function testFinderExceptions(array $listOfPersons, Options $option, mixed $expected): void
     {
         $this->expectException($expected);
         $finder = new Finder($listOfPersons);
@@ -27,19 +26,19 @@ final class FinderRefactoredTest extends TestCase
     {
         yield 'test_should_return_empty_when_given_empty_list' => [
             [],
-            Options::CLOSEST,
+            Options::Closest,
             InvalidArgumentException::class
         ];
         yield 'test_should_return_empty_when_given_one_person' => [
             [new Person("Mike", new \DateTime("1979-01-01"))],
-            Options::CLOSEST,
+            Options::Furthest,
             InvalidArgumentException::class
         ];
     }
     /**
      * @dataProvider finderDataProvider
      */
-    public function testFinder(array $listOfPersons, int $option, array $expected): void
+    public function testFinder(array $listOfPersons, Options $option, array $expected): void
     {
         $finder = new Finder($listOfPersons);
         $result = $finder->find($option);
@@ -53,7 +52,7 @@ final class FinderRefactoredTest extends TestCase
                 new Person("Sue", new \DateTime("1950-01-01")),
                 new Person("Greg", new \DateTime("1952-05-01"))
             ],
-            Options::CLOSEST,
+            Options::Closest,
             [
                 new Person("Sue", new \DateTime("1950-01-01")),
                 new Person("Greg", new \DateTime("1952-05-01"))
@@ -64,7 +63,7 @@ final class FinderRefactoredTest extends TestCase
                 new Person("Mike", new \DateTime("1979-01-01")),
                 new Person("Greg", new \DateTime("1952-05-01"))
             ],
-            Options::FURTHEST,
+            Options::Furthest,
             [
                 new Person("Greg", new \DateTime("1952-05-01")),
                 new Person("Mike", new \DateTime("1979-01-01"))
@@ -77,7 +76,7 @@ final class FinderRefactoredTest extends TestCase
                 new Person("Sarah", new \DateTime("1982-01-01")),
                 new Person("Mike", new \DateTime("1979-01-01")),
             ],
-            Options::FURTHEST,
+            Options::Furthest,
             [
                 new Person("Sue", new \DateTime("1950-01-01")),
                 new Person("Sarah", new \DateTime("1982-01-01"))
@@ -91,7 +90,7 @@ final class FinderRefactoredTest extends TestCase
                 new Person("Sarah", new \DateTime("1982-01-01")),
                 new Person("Mike", new \DateTime("1979-01-01")),
             ],
-            Options::CLOSEST,
+            Options::Closest,
             [
                 new Person("Sue", new \DateTime("1950-01-01")),
                 new Person("Greg", new \DateTime("1952-05-01"))

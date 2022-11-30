@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CodelyTV\FinderKata\Services;
 
-use CodelyTV\FinderKata\Algorithm\Options;
+use CodelyTV\FinderKata\Enums\Options;
 
 class ConcretePairService
 {
@@ -12,11 +12,11 @@ class ConcretePairService
     {
     }
 
-    public function getPair(int $option): PairDTO
+    public function getPair(Options $option): PairDTO
     {
         $answer = $this->listOfAllPairs[0];
         foreach ($this->listOfAllPairs as $pair) {
-            $answer = $option === Options::CLOSEST ?
+            $answer = $option === Options::Closest ?
             $this->getClosest($pair, $answer) : $this->getFurthest($pair, $answer);
         }
         return $answer;

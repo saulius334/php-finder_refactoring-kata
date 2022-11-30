@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CodelyTV\FinderKata\Algorithm;
 
 use InvalidArgumentException;
+use CodelyTV\FinderKata\Enums\Options;
 use CodelyTV\FinderKata\Services\PairDTO;
 use CodelyTV\FinderKata\Services\ListOfPairsService;
 use CodelyTV\FinderKata\Services\ConcretePairService;
@@ -17,7 +18,7 @@ final class Finder implements FinderInterface
         $this->listService = new ListOfPairsService($this->personList);
     }
 
-    public function find(int $option): PairDTO
+    public function find(Options $option): PairDTO
     {
         $listOfAllPairs = $this->listService->getPairList();
 
