@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace CodelyTV\FinderKata\Algorithm;
 
 use InvalidArgumentException;
+use CodelyTV\FinderKata\DTO\PairDTO;
 use CodelyTV\FinderKata\Enums\Options;
-use CodelyTV\FinderKata\Services\PairDTO;
 use CodelyTV\FinderKata\Services\ListOfPairsService;
 use CodelyTV\FinderKata\Services\ConcretePairService;
 

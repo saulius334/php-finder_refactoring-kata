@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CodelyTV\FinderKata\Algorithm;
 
+use CodelyTV\FinderKata\DTO\PairDTO;
 use CodelyTV\FinderKata\Enums\Options;
-use CodelyTV\FinderKata\Services\PairDTO;
 
 interface FinderInterface
 {

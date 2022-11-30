@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CodelyTV\FinderKata\Services;
 
+use CodelyTV\FinderKata\DTO\PairDTO;
 use CodelyTV\FinderKata\Enums\Options;
 
 class ConcretePairService

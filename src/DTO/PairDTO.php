@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CodelyTV\FinderKata\Services;
+namespace CodelyTV\FinderKata\DTO;
 
 use CodelyTV\FinderKata\Models\Person;
 

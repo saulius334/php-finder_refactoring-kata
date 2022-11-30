@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CodelyTV\FinderKata\Services;
 
-use CodelyTV\FinderKata\Services\PairDTO;
+use CodelyTV\FinderKata\DTO\PairDTO;
 
 class ListOfPairsService
 {
